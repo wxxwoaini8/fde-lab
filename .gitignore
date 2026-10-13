@@ -30,3 +30,11 @@ Thumbs.db
 # 本地安装包与大型临时文件（防止误提交几百 MB 的 exe/msi）
 *.exe
 *.msi
+
+# Node / 前端依赖与产物
+node_modules/
+dist/
+.vite/
+*.local
+npm-debug.log*
+pnpm-debug.log*

@@ -1,0 +1,33 @@
+# FDE 学习用数据库
+# 用途：第 6 周 SQL 与建模、第 11 周数据库工程、第 14 周 pgvector 向量检索
+# 启动：docker compose up -d
+# 停止：docker compose down        （数据在具名卷里，不会丢）
+# 查看：docker compose ps / docker compose logs -f postgres
+
+name: fde
+
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: fde-postgres
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      TZ: Asia/Shanghai
+      PGTZ: Asia/Shanghai
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+volumes:
+  pgdata:
+    name: fde-pgdata

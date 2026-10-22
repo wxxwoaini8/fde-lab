@@ -1,0 +1,13 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "stock-tool"
+version = "0.1.0"
+description = "库存台账清洗工具：把脏 Excel 变成规范 CSV，并留一份清洗日志"
+requires-python = ">=3.12"
+dependencies = ["openpyxl>=3.1"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/stock_tool"]
